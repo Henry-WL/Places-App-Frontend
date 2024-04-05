@@ -1,14 +1,37 @@
-import React from 'react'
+import React, { useCallback } from "react";
 
-import './NewPlace.css'
-import Input from '../../shared/components/FormElements/Input'
+import Input from "../../shared/components/FormElements/Input";
+import {
+  VALIDATOR_MINLENGTH,
+  VALIDATOR_REQUIRE,
+} from "../../shared/util/validator";
+import "./NewPlace.css";
 
 const NewPlace = () => {
-  return (
-    <form className='place-form'>
-      <Input element="input" type="text" label="title" errorText="Please enter a valid title."/>
-    </form>
-  )
-}
+  const titleInputHandler = useCallback((id, value, isValid) => {}, []);
+  const descriptionInputHandler = useCallback((id, value, isValid) => {}, []);
 
-export default NewPlace
+  return (
+    <form className="place-form">
+      <Input
+        id="title"
+        element="input"
+        type="text"
+        label="title"
+        validators={[VALIDATOR_REQUIRE()]}
+        errorText="Please enter a valid title."
+        onInput={titleInputHandler}
+      />
+      <Input
+        id="description"
+        element="textarea"
+        label="Description"
+        validators={[VALIDATOR_MINLENGTH(5)]}
+        errorText="Please enter a valid description (at least 5 characters)."
+        onInput={descriptionInputHandler}
+      />
+    </form>
+  );
+};
+
+export default NewPlace;
