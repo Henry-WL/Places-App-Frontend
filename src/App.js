@@ -25,14 +25,14 @@ const App = () => {
           <Route path="/:userId/places" exact>
             <UserPlaces />
           </Route>
-          <Route path="/auth">
-            <Auth/>
-          </Route>
           <Route path="/places/new" exact>
             <NewPlace />
           </Route>
           <Route path="/places/:placeId">
             <UpdatePlace/>
+          </Route>
+          <Route path="/auth">
+            <Auth/>
           </Route>
           <Redirect to="/" />
         </Switch>
