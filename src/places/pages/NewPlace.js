@@ -40,7 +40,7 @@ const NewPlace = () => {
         id="title"
         element="input"
         type="text"
-        label="title"
+        label="Title"
         validators={[VALIDATOR_REQUIRE()]}
         errorText="Please enter a valid title."
         onInput={inputHandler}

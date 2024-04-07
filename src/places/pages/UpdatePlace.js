@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Input from "../../shared/components/FormElements/Input";
-import { VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from "../../shared/util/validator";
+import {
+  VALIDATOR_MINLENGTH,
+  VALIDATOR_REQUIRE,
+} from "../../shared/util/validator";
 import Button from "../../shared/components/FormElements/Button";
 import { useForm } from "../../shared/hooks/form-hook";
-import './PlaceForm.css'
+import "./PlaceForm.css";
+import Card from "../../shared/components/UIElements/Card";
 
 const DUMMY_PLACES = [
   {
@@ -22,7 +26,7 @@ const DUMMY_PLACES = [
   },
   {
     id: "p2",
-    title: "Empire State Building",
+    title: "Emp. State Building",
     description: "One of the most famous skyscrapers in the world",
     imageUrl:
       "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Empire_State_Building_%28aerial_view%29.jpg/800px-Empire_State_Building_%28aerial_view%29.jpg",
@@ -36,31 +40,64 @@ const DUMMY_PLACES = [
 ];
 
 const UpdatePlace = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const placeId = useParams().placeId;
-  
-  const identifiedPlace = DUMMY_PLACES.find((p) => p.id === placeId);
-  
-  const [formState, inputHandler] = useForm({
-    title: {
-        value: identifiedPlace.title,
-        isValid: true
+
+  const [formState, inputHandler, setFormData] = useForm(
+    {
+      title: {
+        value: "",
+        isValid: false,
+      },
+      description: {
+        value: "",
+        isValid: false,
+      },
     },
-    description: {
-        value: identifiedPlace.description,
-        isValid: true
+    false
+  );
+
+  const identifiedPlace = DUMMY_PLACES.find((p) => p.id === placeId);
+
+  useEffect(() => {
+    if (identifiedPlace) {
+      setFormData(
+        {
+          title: {
+            value: identifiedPlace.title,
+            isValid: true,
+          },
+          description: {
+            value: identifiedPlace.description,
+            isValid: true,
+          },
+        },
+        true
+      );
     }
-  }, true)
+
+    setIsLoading(false);
+  }, [setFormData, identifiedPlace]);
 
   const placeUpdateSubmitHandler = (event) => {
-    event.preventDefault()
-    console.log(formState.inputs)
-  }
-
+    event.preventDefault();
+    console.log(formState.inputs);
+  };
 
   if (!identifiedPlace) {
     return (
+      <div className="center">
+        <Card>
+          <h2>Could not find place!</h2>
+        </Card>
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return (
       <div className="centre">
-        <h2>Could not find place!</h2>
+        <h2>Loading...</h2>
       </div>
     );
   }
@@ -79,7 +116,7 @@ const UpdatePlace = () => {
         initialIsValid={formState.inputs.title.isValid}
       />
 
-<Input
+      <Input
         id="description"
         element="textarea"
         type="text"
@@ -90,7 +127,9 @@ const UpdatePlace = () => {
         initialValue={formState.inputs.description.value}
         initialIsValid={formState.inputs.description.isValid}
       />
-      <Button type="submit" disabled={!formState.isValid}>UPDATED PLACE</Button>
+      <Button type="submit" disabled={!formState.isValid}>
+        UPDATED PLACE
+      </Button>
     </form>
   );
 };
