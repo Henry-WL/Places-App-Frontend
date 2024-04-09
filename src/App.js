@@ -11,7 +11,7 @@ import NewPlace from "./places/pages/NewPlace";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
 import UserPlaces from "./places/pages/UserPlaces";
 import UpdatePlace from "./places/pages/UpdatePlace";
-import Auth from "./user/pages/Auth";
+import Auth from './user/pages/Auth';
 import { AuthContext } from "./shared/context/auth-context";
 
 const App = () => {
@@ -28,24 +28,26 @@ const App = () => {
   let routes;
 
   if (isLoggedIn) {
-    <React.Fragment>
-      <Route path="/" exact>
-        <Users />
-      </Route>
-      <Route path="/:userId/places" exact>
-        <UserPlaces />
-      </Route>
-      <Route path="/places/new" exact>
-        <NewPlace />
-      </Route>
-      <Route path="/places/:placeId">
-        <UpdatePlace />
-      </Route>
-      <Redirect to="/" />
-    </React.Fragment>;
+    routes = (
+      <Switch>
+        <Route path="/" exact>
+          <Users />
+        </Route>
+        <Route path="/:userId/places" exact>
+          <UserPlaces />
+        </Route>
+        <Route path="/places/new" exact>
+          <NewPlace />
+        </Route>
+        <Route path="/places/:placeId">
+          <UpdatePlace />
+        </Route>
+        <Redirect to="/" />
+      </Switch>
+    );
   } else {
     routes = (
-      <React.Fragment>
+      <Switch>
         <Route path="/" exact>
           <Users />
         </Route>
@@ -56,7 +58,7 @@ const App = () => {
           <Auth />
         </Route>
         <Redirect to="/auth" />
-      </React.Fragment>
+      </Switch>
     );
   }
 
@@ -66,9 +68,7 @@ const App = () => {
     >
       <Router>
         <MainNavigation />
-        <main>
-          <Switch>{routes}</Switch>
-        </main>
+        <main>{routes}</main>
       </Router>
     </AuthContext.Provider>
   );
