@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import Input from "../../shared/components/FormElements/Input";
 import { useForm } from "../../shared/hooks/form-hook";
+import ImageUpload from "../../shared/components/FormElements/ImageUpload";
 import {
   VALIDATOR_EMAIL,
   VALIDATOR_MINLENGTH,
@@ -39,6 +40,7 @@ const Auth = () => {
         {
           ...formState.inputs,
           name: undefined,
+          image:undefined
         },
         formState.inputs.email.isValid && formState.inputs.password.isValid
       );
@@ -50,6 +52,10 @@ const Auth = () => {
             value: "",
             isValid: false,
           },
+          image: {
+            value: null,
+            isValid: false
+          }
         },
         false
       );
@@ -60,6 +66,8 @@ const Auth = () => {
   const authSubmitHandler = async (event) => {
     // send to backend!
     event.preventDefault();
+
+    console.log(formState.inputs)
 
     if (isLoginMode) {
       try {
@@ -127,6 +135,7 @@ const Auth = () => {
               onInput={inputHandler}
             />
           )}
+          {!isLoginMode && <ImageUpload center={true} id="image" onInput={inputHandler}/>}
           <Input
             element="input"
             id="email"
@@ -143,7 +152,7 @@ const Auth = () => {
             type="password"
             label="Password"
             validators={[VALIDATOR_MINLENGTH(6)]}
-            errorText="Please enter a valid passwor, at least 6 characters)."
+            errorText="Please enter a valid password, at least 6 characters)."
             onInput={inputHandler}
           />
 
