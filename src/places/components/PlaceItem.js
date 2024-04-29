@@ -16,6 +16,10 @@ const PlaceItem = (props) => {
   const auth = useContext(AuthContext);
   const [showMap, setShowMap] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+  // const [showComments, setShowComments] = useState(true)
+
+  console.log(props)
+  console.log(auth.userId)
 
   const history = useHistory()
 
@@ -56,6 +60,20 @@ const PlaceItem = (props) => {
       console.log(err);
     }
   };
+
+  const deleteCommentHandler = async (id) => {
+    console.log(id)
+
+    // try {
+    //   await sendRequest(
+    //     process.env.REACT_APP_BACKEND_URL + `/places/uncomment/${props.id}`, 
+    //     "PUT", //include comment id
+    //   )
+    // } catch(err) {
+    //   console.log(err)
+    // }
+  }
+
   return (
     <React.Fragment>
       <ErrorModal error={error} onClear={clearError} />
@@ -116,6 +134,22 @@ const PlaceItem = (props) => {
                 DELETE
               </Button>
             )}
+          </div>
+
+          <div>
+            comments
+
+            {props.comments.map((comment) => {
+              console.log(comment)
+              return (
+                <div key={comment.id}>
+                  single comment
+                  <p>{comment.text}</p>
+
+                  {comment.postedBy === auth.userId && <button onClick={() => deleteCommentHandler(comment.id)}>delete</button>}
+                </div>
+              )
+            })}
           </div>
         </Card>
       </li>
