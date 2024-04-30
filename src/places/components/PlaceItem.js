@@ -79,7 +79,8 @@ const PlaceItem = (props) => {
         },
         "userId": auth.userId
       }),
-      {Accept: "application/json",
+      {Authorization: 'Bearer ' + auth.token,
+        Accept: "application/json",
       "Content-Type": "application/json"}
       )
       // setComments([...comments, responseData.comment])
@@ -102,7 +103,7 @@ const PlaceItem = (props) => {
             "_id": comment._id,
           }
         }),
-        {
+        {Authorization: 'Bearer ' + auth.token,
           Accept: "application/json",
           "Content-Type": "application/json"
         }
@@ -197,6 +198,7 @@ const PlaceItem = (props) => {
                 <div key={comment.id} style={{border: "1px solid black"}}>
                   single comment
                   <p>{comment.text}</p>
+                  <p>{comment.email}</p>
 
                   {comment.postedBy === auth.userId && <button onClick={() => deleteCommentHandler(comment.id, comment)}>delete</button>}
                 </div>
