@@ -52,6 +52,35 @@
     height: 15rem;
     width: 100%;
   }
+
+  .containerCommentsDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+  }
+
+  .commentInput {
+    font: inherit;
+    padding: 0.25rem 1rem;
+    /* border: 1px solid #ff0055; */
+    /* border-radius: 1px; */
+    /* background: #ff0055; */
+    /* color: white; */
+    /* cursor: pointer; */
+    margin-right: 0.5rem;
+    /* text-decoration: none; */
+    /* display: inline-block; */
+  }
+
+  .singleCommentDiv {
+    border: 1px solid black;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px;
+    width: 100%;
+  }
   
   @media (min-width: 768px) {
     .place-item__image {

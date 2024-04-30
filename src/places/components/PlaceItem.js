@@ -16,14 +16,14 @@ const PlaceItem = (props) => {
   const auth = useContext(AuthContext);
   const [showMap, setShowMap] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
-  const [commentText, setCommentText] = useState('')
-  const [comments, setComments] = useState(props.comments)
+  const [commentText, setCommentText] = useState("");
+  const [comments, setComments] = useState(props.comments);
   // const [showComments, setShowComments] = useState(true)
 
   // console.log(props)
   // console.log(auth.userId)
 
-  const history = useHistory()
+  const history = useHistory();
 
   const openMapHandler = () => {
     setShowMap(true);
@@ -46,9 +46,11 @@ const PlaceItem = (props) => {
 
     try {
       await sendRequest(
-        process.env.REACT_APP_BACKEND_URL +  `/places/${props.id}`,
-        "DELETE", null, {
-          Authorization: 'Bearer ' + auth.token
+        process.env.REACT_APP_BACKEND_URL + `/places/${props.id}`,
+        "DELETE",
+        null,
+        {
+          Authorization: "Bearer " + auth.token,
         }
       );
       /*
@@ -64,61 +66,61 @@ const PlaceItem = (props) => {
   };
 
   const addCommentHandler = async (event) => {
-    event.preventDefault()
-    console.log('first')
-    console.log(commentText)
+    event.preventDefault();
+    console.log("first");
+    console.log(commentText);
 
-    let responseData
+    let responseData;
 
     try {
-      responseData = await sendRequest(process.env.REACT_APP_BACKEND_URL + `/places/comment/${props.id}`, 'PUT', 
-      JSON.stringify({
-        "comment": {
-          "text": commentText,
-          "postedBy": auth.userId,
-        },
-        "userId": auth.userId
-      }),
-      {Authorization: 'Bearer ' + auth.token,
-        Accept: "application/json",
-      "Content-Type": "application/json"}
-      )
+      responseData = await sendRequest(
+        process.env.REACT_APP_BACKEND_URL + `/places/comment/${props.id}`,
+        "PUT",
+        JSON.stringify({
+          comment: {
+            text: commentText,
+            postedBy: auth.userId,
+          },
+          userId: auth.userId,
+        }),
+        {
+          Authorization: "Bearer " + auth.token,
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        }
+      );
       // setComments([...comments, responseData.comment])
-      setCommentText('')
-    } catch(err) {
-      console.log(err)
+      setCommentText("");
+    } catch (err) {
+      console.log(err);
     }
 
-    props.addComment(responseData, props.id)
-  }
+    props.addComment(responseData, props.id);
+  };
 
   const deleteCommentHandler = async (id, comment) => {
-
     try {
       await sendRequest(
-        process.env.REACT_APP_BACKEND_URL + `/places/uncomment/${props.id}`, 
-        "PUT", 
+        process.env.REACT_APP_BACKEND_URL + `/places/uncomment/${props.id}`,
+        "PUT",
         JSON.stringify({
-          "comment": {
-            "_id": comment._id,
-          }
+          comment: {
+            _id: comment._id,
+          },
         }),
-        {Authorization: 'Bearer ' + auth.token,
+        {
+          Authorization: "Bearer " + auth.token,
           Accept: "application/json",
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         }
-
-      )
-     
-    } catch(err) {
-      console.log(err)
+      );
+    } catch (err) {
+      console.log(err);
     }
 
-
-    props.deleteComment(id, comment, props.id)
+    props.deleteComment(id, comment, props.id);
     // setComments(comments.filter(c => c.id !== id))
-  }
-
+  };
 
   return (
     <React.Fragment>
@@ -159,9 +161,12 @@ const PlaceItem = (props) => {
       </Modal>
       <li className="place-item">
         <Card className="place-iten__content">
-          {isLoading && <LoadingSpinner asOverlay/>}
+          {isLoading && <LoadingSpinner asOverlay />}
           <div className="place-item__image">
-            <img src={`${process.env.REACT_APP_ASSET_URL}/${props.image}`} alt={props.title} />
+            <img
+              src={`${process.env.REACT_APP_ASSET_URL}/${props.image}`}
+              alt={props.title}
+            />
           </div>
           <div className="place-item__info">
             <h2>{props.title}</h2>
@@ -181,30 +186,43 @@ const PlaceItem = (props) => {
               </Button>
             )}
           </div>
-
-          <div>
-            comments
-            
-            {auth.isLoggedIn && <div>
-                <form onSubmit={addCommentHandler}>
-                  <input value={commentText} onChange={(e) => setCommentText(e.target.value)}></input>
-                  <button type="submit">Add</button>
-                </form>
-              </div>}
-
-            {!isLoading && props.comments.map((comment) => {
-              // console.log(comment)
-              return (
-                <div key={comment.id} style={{border: "1px solid black"}}>
-                  single comment
-                  <p>{comment.text}</p>
-                  <p>{comment.email}</p>
-
-                  {comment.postedBy === auth.userId && <button onClick={() => deleteCommentHandler(comment.id, comment)}>delete</button>}
+          {!props.comments.length !== 0 && (
+            <div className="containerCommentsDiv">
+              <p>Comments </p>
+              {auth.isLoggedIn && (
+                <div>
+                  <form onSubmit={addCommentHandler}>
+                    <input className="commentInput"
+                      value={commentText}
+                      onChange={(e) => setCommentText(e.target.value)}
+                    ></input>
+                    <Button inverse type="submit">Add</Button>
+                  </form>
                 </div>
-              )
-            })}
-          </div>
+              )}
+
+              {!isLoading &&
+                props.comments.map((comment) => {
+                  // console.log(comment)
+                  return (
+                    <div key={comment.id} className="singleCommentDiv">
+                      <p>{comment.text}</p>
+                      <p>{comment.email}</p>
+
+                      {comment.postedBy === auth.userId && (
+                        <Button
+                          onClick={() =>
+                            deleteCommentHandler(comment.id, comment)
+                          }
+                        >
+                          Delete
+                        </Button>
+                      )}
+                    </div>
+                  );
+                })}
+            </div>
+          )}
         </Card>
       </li>
     </React.Fragment>
