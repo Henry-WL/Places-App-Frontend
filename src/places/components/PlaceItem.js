@@ -186,9 +186,9 @@ const PlaceItem = (props) => {
               </Button>
             )}
           </div>
-          {!props.comments.length !== 0 && (
+         
             <div className="containerCommentsDiv">
-              <p>Comments </p>
+              { props.comments.length !== 0 && <p>Comments </p>}
               {auth.isLoggedIn && (
                 <div>
                   <form onSubmit={addCommentHandler}>
@@ -222,7 +222,7 @@ const PlaceItem = (props) => {
                   );
                 })}
             </div>
-          )}
+          
         </Card>
       </li>
     </React.Fragment>
