@@ -64,14 +64,7 @@
   .commentInput {
     font: inherit;
     padding: 0.25rem 1rem;
-    /* border: 1px solid #ff0055; */
-    /* border-radius: 1px; */
-    /* background: #ff0055; */
-    /* color: white; */
-    /* cursor: pointer; */
     margin-right: 0.5rem;
-    /* text-decoration: none; */
-    /* display: inline-block; */
   }
 
   .singleCommentDiv {
