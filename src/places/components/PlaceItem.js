@@ -61,17 +61,30 @@ const PlaceItem = (props) => {
     }
   };
 
-  const deleteCommentHandler = async (id) => {
+  const deleteCommentHandler = async (id, comment) => {
     console.log(id)
+    console.log(comment)
 
-    // try {
-    //   await sendRequest(
-    //     process.env.REACT_APP_BACKEND_URL + `/places/uncomment/${props.id}`, 
-    //     "PUT", //include comment id
-    //   )
-    // } catch(err) {
-    //   console.log(err)
-    // }
+    try {
+      await sendRequest(
+        process.env.REACT_APP_BACKEND_URL + `/places/uncomment/${props.id}`, 
+        "PUT", 
+        JSON.stringify({
+          "comment": {
+            "_id": comment._id,
+          }
+        }),
+        {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        }
+
+
+        //include comment id
+      )
+    } catch(err) {
+      console.log(err)
+    }
   }
 
   return (
@@ -142,11 +155,11 @@ const PlaceItem = (props) => {
             {props.comments.map((comment) => {
               console.log(comment)
               return (
-                <div key={comment.id}>
+                <div key={comment.id} style={{border: "1px solid black"}}>
                   single comment
                   <p>{comment.text}</p>
 
-                  {comment.postedBy === auth.userId && <button onClick={() => deleteCommentHandler(comment.id)}>delete</button>}
+                  {comment.postedBy === auth.userId && <button onClick={() => deleteCommentHandler(comment.id, comment)}>delete</button>}
                 </div>
               )
             })}
