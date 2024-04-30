@@ -34,6 +34,43 @@ const UserPlaces = () => {
     setLoadedPlaces(prevPlaces => prevPlaces.filter(place => place.id !== deletedPlaceId))
   }
 
+  const deleteComment = (deletedCommentId, comment, placeId) => {
+    console.log(deletedCommentId, comment, placeId)
+    console.log(loadedPlaces)
+
+    console.log('place ID CHECK', loadedPlaces[0].id === placeId)
+
+    setLoadedPlaces(prevPlaces => {
+      return prevPlaces.map((place) => {
+        if (place.id === placeId) {
+          return {
+            ...place,
+            comments: place.comments.filter((c) => c.id !== deletedCommentId)
+          }
+        } 
+        return place;
+      })
+    })
+  }
+
+  const addComment = (responseData, placeId) => {
+    const lastArrayIndex = responseData.comments.length - 1
+    const lastComment = responseData.comments[lastArrayIndex]
+
+    setLoadedPlaces(prevPlaces => {
+      return prevPlaces.map((place) => {
+        if (place.id === placeId) {
+          return {
+            ...place,
+            comments: [...place.comments, lastComment]
+          }
+        }
+        return place
+      })
+    })
+
+  }
+
   return (
     <React.Fragment>
       <ErrorModal error={error} onClear={clearError} />
@@ -42,7 +79,7 @@ const UserPlaces = () => {
           <LoadingSpinner asOverlay />
         </div>
       )}
-      {!isLoading && loadedPlaces && <PlaceList items={loadedPlaces} onDeletePlace={placeDeletedHandler} />}
+      {!isLoading && loadedPlaces && <PlaceList items={loadedPlaces} onDeletePlace={placeDeletedHandler} deleteComment={deleteComment} addComment={addComment} />}
     </React.Fragment>
   );
 };

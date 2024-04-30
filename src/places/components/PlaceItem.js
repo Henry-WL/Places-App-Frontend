@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 
 import "./PlaceItem.css";
 import Card from "../../shared/components/UIElements/Card";
@@ -16,10 +16,12 @@ const PlaceItem = (props) => {
   const auth = useContext(AuthContext);
   const [showMap, setShowMap] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [commentText, setCommentText] = useState('')
+  const [comments, setComments] = useState(props.comments)
   // const [showComments, setShowComments] = useState(true)
 
-  console.log(props)
-  console.log(auth.userId)
+  // console.log(props)
+  // console.log(auth.userId)
 
   const history = useHistory()
 
@@ -61,9 +63,35 @@ const PlaceItem = (props) => {
     }
   };
 
+  const addCommentHandler = async (event) => {
+    event.preventDefault()
+    console.log('first')
+    console.log(commentText)
+
+    let responseData
+
+    try {
+      responseData = await sendRequest(process.env.REACT_APP_BACKEND_URL + `/places/comment/${props.id}`, 'PUT', 
+      JSON.stringify({
+        "comment": {
+          "text": commentText,
+          "postedBy": auth.userId,
+        },
+        "userId": auth.userId
+      }),
+      {Accept: "application/json",
+      "Content-Type": "application/json"}
+      )
+      // setComments([...comments, responseData.comment])
+      setCommentText('')
+    } catch(err) {
+      console.log(err)
+    }
+
+    props.addComment(responseData, props.id)
+  }
+
   const deleteCommentHandler = async (id, comment) => {
-    console.log(id)
-    console.log(comment)
 
     try {
       await sendRequest(
@@ -79,13 +107,17 @@ const PlaceItem = (props) => {
           "Content-Type": "application/json"
         }
 
-
-        //include comment id
       )
+     
     } catch(err) {
       console.log(err)
     }
+
+
+    props.deleteComment(id, comment, props.id)
+    // setComments(comments.filter(c => c.id !== id))
   }
+
 
   return (
     <React.Fragment>
@@ -151,9 +183,16 @@ const PlaceItem = (props) => {
 
           <div>
             comments
+            
+            {auth.isLoggedIn && <div>
+                <form onSubmit={addCommentHandler}>
+                  <input value={commentText} onChange={(e) => setCommentText(e.target.value)}></input>
+                  <button type="submit">Add</button>
+                </form>
+              </div>}
 
-            {props.comments.map((comment) => {
-              console.log(comment)
+            {!isLoading && props.comments.map((comment) => {
+              // console.log(comment)
               return (
                 <div key={comment.id} style={{border: "1px solid black"}}>
                   single comment
