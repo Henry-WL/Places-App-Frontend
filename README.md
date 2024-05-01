@@ -6,9 +6,7 @@
 
 ## Demo video
 
-https://streamable.com/zm1cm5
-
-This repository comprises the frontend portion of my 'YourPlaces' Application. 
+https://streamable.com/zm1cm5 
 
 ## Table of Contents
 - [About The Project](#about-the-project)
