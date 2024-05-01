@@ -4,6 +4,10 @@
 
 [Backend Repository](https://github.com/BulletToothTony/Places-App-Backend)
 
+## Demo video
+
+https://streamable.com/zm1cm5
+
 This repository comprises the frontend portion of my 'YourPlaces' Application. 
 
 ## Table of Contents
@@ -38,10 +42,6 @@ Each place requires an address, the address users the GoogleMaps geocode API to 
 
 #### Responsive Design
 The app is designed to be responsive across various devices, including desktops, tablets, and smartphones. This ensures optimal usability and accessibility regardless of screen size or device type.
-
-## Demo video
-
-https://streamable.com/zm1cm5
 
 ## Demo Pictures
 
