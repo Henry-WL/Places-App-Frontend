@@ -1,6 +1,6 @@
 # Project: YourPlaces Application
 
-[Visit The App](https://yourplaces-gn4g.onrender.com/)
+[Visit The App](https://yourplaces-gn4g.onrender.com/) (Please allow a few minutes for the server to start)
 
 [Backend Repository](https://github.com/BulletToothTony/Places-App-Backend)
 
