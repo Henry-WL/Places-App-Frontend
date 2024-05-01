@@ -45,23 +45,15 @@ https://streamable.com/zm1cm5
 
 ## Demo Pictures
 
-<img width="1719" alt="Pa<img width="1722" alt="Pasted Graphic 1" src="https://github.com/BulletToothTony/Places-App-Frontend/assets/58192857/33fc6b0c-3cc9-416c-843c-7eca7d14bb9c">
-sted Graphic" src="https://github.com/BulletToothTony/Places-App-Frontend/assets/58192857/06a29f94-0e95-4817-b94c-ced62f581ba2">
-
-![Uploading Pasted Graphic 1.png…]()
+<img width="1719" alt="Pasted Graphic" src="https://github.com/BulletToothTony/Places-App-Frontend/assets/58192857/c1ce44c9-d1da-4d8c-9ed9-b429ad9ab1f7">
 
 <img width="1722" alt="Pasted Graphic 2" src="https://github.com/BulletToothTony/Places-App-Frontend/assets/58192857/d4c64ae4-5b57-41c9-9951-7474949a5031">
 
-
 <img width="1721" alt="Pasted Graphic 3" src="https://github.com/BulletToothTony/Places-App-Frontend/assets/58192857/6f0c22ae-878b-42c2-a9d0-4458078c4a0d">
-
-
 
 <img width="1715" alt="Pasted Graphic 4" src="https://github.com/BulletToothTony/Places-App-Frontend/assets/58192857/dcb57e18-cda7-4017-bd23-0225f0432240">
 
-
 <img width="1728" alt="Pasted Graphic 5" src="https://github.com/BulletToothTony/Places-App-Frontend/assets/58192857/5cf244cb-402a-48fc-a78b-b10aaedc71d0">
-
 
 <img width="1723" alt="Pasted Graphic 6" src="https://github.com/BulletToothTony/Places-App-Frontend/assets/58192857/1f3ee2e5-32aa-4262-97ee-34c224b6db5c">
 
