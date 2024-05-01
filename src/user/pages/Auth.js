@@ -114,6 +114,29 @@ const Auth = () => {
     clearError()
   };
 
+  const guestLoginSubmit = async () => {
+    try {
+      const responseData = await sendRequest(
+        `${process.env.REACT_APP_BACKEND_URL}/users/login`,
+        "POST",
+        JSON.stringify({
+          email: "test@test.com",
+          password: "123456",
+        }),
+
+        {
+          "Content-Type": "application/json",
+        }
+      );
+
+      console.log(responseData)
+
+      auth.login(responseData.userId, responseData.token);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   return (
     <React.Fragment>
       <div className="center">
@@ -162,6 +185,13 @@ const Auth = () => {
         <Button inverse onClick={switchModeHandler}>
           SWITCH TO {isLoginMode ? "SIGNUP" : "LOGIN"}
         </Button>
+
+            <div className="guestLoginDiv">
+
+        <Button inverse onClick={guestLoginSubmit}>
+          LOGIN AS GUEST
+        </Button>
+            </div>
       </Card>
       </div>
       
