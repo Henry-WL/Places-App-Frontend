@@ -55,6 +55,21 @@ The app is designed to be responsive across various devices, including desktops,
 
 <img width="1723" alt="Pasted Graphic 6" src="https://github.com/BulletToothTony/Places-App-Frontend/assets/58192857/1f3ee2e5-32aa-4262-97ee-34c224b6db5c">
 
+## Local install and setup
+
+- Clone git repository to your local machine, install dependencies with npm install
+
+- You will need the URL of your backend whether this is being run locally or on a server is up to you
+
+- Create a .env file in the top level of the cloned repo
+
+- Add the following variables to the env file and add the required keys / URLS
+
+  REACT_APP_GOOGLE_API_KEY=123
+  REACT_APP_BACKEND_URL=http://localhost:5001/api
+  REACT_APP_ASSET_URL=http://localhost:5001
+
+- Run npm start to start the application
 
 ## Contact
 
